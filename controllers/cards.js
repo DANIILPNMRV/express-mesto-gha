@@ -41,9 +41,11 @@ const setCardLike = (req, res, next) => {
   )
     .populate(['owner', 'likes'])
     .then((card) => {
-      if (card) {
-        res.send({ message: 'Лайк добавлен' });
+      if (card === null) {
+        next(new NotFoundError('Карточка не найдена'));
+        return;
       }
+      res.send({ message: 'Лайк добавлен' });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -64,9 +66,11 @@ const deleteCardLike = (req, res, next) => {
   )
     .populate(['owner', 'likes'])
     .then((card) => {
-      if (card) {
-        res.status(SUCCESS).send({ message: 'Лайк удалён' });
+      if (card === null) {
+        next(new NotFoundError('Карточка не найдена'));
+        return;
       }
+      res.status(SUCCESS).send({ message: 'Лайк удалён' });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
