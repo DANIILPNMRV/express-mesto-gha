@@ -62,11 +62,11 @@ const getUserById = (req, res, next) => {
   const { userId } = req.params;
   User.findById(userId, '-__v')
     .then((user) => {
-      if (user) {
-        res.status(SUCCESS).send(user);
-      } else {
+      if (user === null) {
         next(new NotFoundError('Запрашиваемый пользователь не найден'));
+        return;
       }
+      res.status(SUCCESS).send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {

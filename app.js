@@ -39,11 +39,12 @@ app.post('/signup', celebrate({
 app.use(auth);
 app.use('/', router);
 
-app.use(errors());
-app.use(errorHandler);
 app.use((req, res, next) => {
   next(new NotFoundError('Запрашиваемой страницы не существует'));
 });
+
+app.use(errors());
+app.use(errorHandler);
 
 app.listen(3000, () => {
   console.log(`Listing on port ${PORT}`);
