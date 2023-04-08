@@ -49,7 +49,7 @@ const setCardLike = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new IncorrectDataError('Переданы некорректные данные'));
+        next(new IncorrectDataError('Введены некорректные данные'));
         return;
       }
       next(err);
@@ -74,7 +74,7 @@ const deleteCardLike = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new NotFoundError(`Переданы некорректные данные: ${err}`));
+        next(new NotFoundError('Переданы некорректные данные'));
         return;
       }
       next(err);
@@ -98,7 +98,7 @@ const deleteCardById = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        return next(new IncorrectDataError(`Введены некорректные данные: ${err}`));
+        return next(new IncorrectDataError('Введены некорректные данные'));
       }
       return next(err);
     });

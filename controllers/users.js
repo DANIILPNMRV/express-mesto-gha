@@ -70,7 +70,7 @@ const getUserById = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new IncorrectDataError(`Переданы некорректные данные: ${err}`));
+        next(new IncorrectDataError('Введены некорректные данные'));
         return;
       }
       next(err);
@@ -99,7 +99,7 @@ const updUserAvatar = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'IncorrectDataError') {
-        next(new IncorrectDataError(`Переданы некорректные данные: ${err}`));
+        next(new IncorrectDataError('Введены некорректные данные'));
         return;
       }
       next(err);
@@ -128,7 +128,7 @@ const updUserInfo = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'IncorrectDataError') {
-        next(new IncorrectDataError(`Переданы некорректные данные: ${err}`));
+        next(new IncorrectDataError('Введены некорректные данные'));
         return;
       }
       next(err);

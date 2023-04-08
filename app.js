@@ -41,7 +41,7 @@ app.use('/', router);
 
 app.use(errors());
 app.use(errorHandler);
-app.use('', (req, res, next) => {
+app.use((req, res, next) => {
   next(new NotFoundError('Запрашиваемой страницы не существует'));
 });
 
