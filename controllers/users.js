@@ -40,7 +40,7 @@ const createUser = (req, res, next) => {
       },
     }))
     .catch((err) => {
-      if (err.name === 'IncorrectDataError') {
+      if (err.name === 'ValidationError') {
         next(new IncorrectDataError('Переданы некорректные данные'));
         return;
       }
@@ -98,7 +98,7 @@ const updUserAvatar = (req, res, next) => {
       res.status(SUCCESS).send(user);
     })
     .catch((err) => {
-      if (err.name === 'IncorrectDataError') {
+      if (err.name === 'ValidationError') {
         next(new IncorrectDataError('Введены некорректные данные'));
         return;
       }
@@ -127,7 +127,7 @@ const updUserInfo = (req, res, next) => {
       res.status(SUCCESS).send(user);
     })
     .catch((err) => {
-      if (err.name === 'IncorrectDataError') {
+      if (err.name === 'ValidationError') {
         next(new IncorrectDataError('Введены некорректные данные'));
         return;
       }
@@ -150,7 +150,7 @@ const login = (req, res, next) => {
     }))
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, 'jwt-secret-key', { expiresIn: '7d' });
-      res.send({ user, token });
+      res.send({ token });
     })
     .catch(next);
 };

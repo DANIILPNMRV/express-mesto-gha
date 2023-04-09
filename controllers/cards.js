@@ -74,7 +74,7 @@ const deleteCardLike = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new NotFoundError('Переданы некорректные данные'));
+        next(new IncorrectDataError('Введены некорректные данные'));
         return;
       }
       next(err);
@@ -84,7 +84,7 @@ const deleteCardLike = (req, res, next) => {
 const deleteCardById = (req, res, next) => {
   const userId = req.user._id;
   const { cardId } = req.params;
-  Card.findByIdAndRemove(cardId, { select: '-__v' })
+  Card.findById(cardId, { select: '-__v' })
     .populate(['owner', 'likes'])
     .then((card) => {
       if (card === null) {
